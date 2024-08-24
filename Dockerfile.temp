@@ -1,0 +1,17 @@
+FROM python:3.11.9
+
+RUN apt update && apt install tree
+
+ADD ./ /home/sample-app-root
+
+WORKDIR /home/sample-app-root/
+RUN pip install -r requirements.txt
+
+#RUN cd /home/sample-app-root/ && pip install -r requirements.txt
+
+
+RUN django-admin startproject sampleapp
+
+WORKDIR /home/sample-app-root/sampleapp
+
+CMD python manage.py runserver 0.0.0.0:8000
